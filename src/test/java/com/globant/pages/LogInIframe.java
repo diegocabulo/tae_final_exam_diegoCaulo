@@ -10,20 +10,8 @@ public class LogInIframe extends BasePage{
         super(pDriver);
     }
 
-    @FindBy(css = "input[type='email']")
-    private WebElement userNameInputField;
-
-    @FindBy(css = "input[type='password']")
-    private WebElement passwordInputField;
-
     @FindBy(id = "BtnCreateAccount")
     private WebElement signUpButton;
-
-    @FindBy(id = "cancel-account")
-    private WebElement deleteAccountLink;
-
-    @FindBy(css = "button.btn.btn-primary.ng-isolate-scope")
-    private WebElement confirmCommonButton;
 
     @FindBy(id = "BtnSubmit")
     private WebElement loginButton;

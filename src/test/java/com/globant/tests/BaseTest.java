@@ -25,8 +25,9 @@ public class BaseTest {
         return homePage;
     }
 
-//    @AfterTest
-//    public void afterTest(){
-//        homePage.dispose();
-//    }
+    @AfterTest
+    public void afterTest(){
+        logger.info("Finish the Test");
+        homePage.dispose();
+    }
 }

@@ -70,9 +70,4 @@ public class SignUpIframePage extends BasePage{
         newPasswordField.sendKeys("test12345*");
     }
 
-    public void clickSingUpButton(){
-        waitToBeClickable(signUpButton);
-        signUpButton.click();
-    }
-
 }

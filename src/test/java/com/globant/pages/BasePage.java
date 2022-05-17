@@ -7,6 +7,10 @@ import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+/**
+ * Class that represents the base page, common methods
+ * @author diego.cabulo@globant.com
+ */
 public class BasePage {
     private WebDriver driver;
     private WebDriverWait webDriverWait;
@@ -43,7 +47,16 @@ public class BasePage {
         getWebDriverWait().until(ExpectedConditions.elementToBeClickable(element));
     }
 
+    public void clickElement(WebElement element){
+        waitToBeClickable(element);
+        element.click();
+    }
+
     public boolean isDisplayed(WebElement element){
         return element.isDisplayed();
+    }
+
+    public void goPreviousPage(){
+        driver.navigate().back();
     }
 }

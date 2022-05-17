@@ -5,7 +5,6 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 
-import java.util.List;
 
 public class HomePage extends BasePage{
 
@@ -28,10 +27,26 @@ public class HomePage extends BasePage{
     @FindBy(css = "iframe[name ='oneid-iframe']")
     private WebElement iframeLogIn;
 
+    @FindBy(css = "li.pillar.watch > a")
+    private WebElement watchLink;
+
+    @FindBy(css = "li.display-user > span")
+    private WebElement usernameText;
+
+    @FindBy(css = "#sideLogin-left-rail > button.button-alt.med")
+    private WebElement logInButtonCheck;
+
+    public WebElement getUsernameText() { return usernameText; }
+
+    public WebElement getWatchLink() { return watchLink; }
 
     public WebElement getLogOutButton() {
         return logOutButton;
     }
+
+    public WebElement getLogInButton() { return logInButton; }
+
+    public WebElement getLogInButtonCheck() { return logInButtonCheck; }
 
 
     public LogInIframe clickLogIn(){
@@ -42,17 +57,12 @@ public class HomePage extends BasePage{
         return new LogInIframe(getDriver());
     }
 
-    public void clickLogOut(){
-        waitToBeClickable(logOutButton);
-        logOutButton.click();
+    public WatchPage clickWatchButton(){
+        waitToBeClickable(watchLink);
+        watchLink.click();
+        return new WatchPage(getDriver());
     }
 
-
-    public boolean checkLogOut(){
-        actionHoverElement();
-        waitToBeClickable(logOutButton);
-        return logOutButton.getText().equals("Log Out");
-    }
 
     public void actionHoverElement(){
         waitElementVisibility(hoverElement);

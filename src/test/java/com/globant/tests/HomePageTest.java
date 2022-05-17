@@ -1,9 +1,7 @@
 package com.globant.tests;
 
 import com.globant.data.Data;
-import com.globant.pages.HomePage;
-import com.globant.pages.LogInIframe;
-import com.globant.pages.SignUpIframePage;
+import com.globant.pages.*;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -45,8 +43,53 @@ public class HomePageTest extends BaseTest{
         Assert.assertTrue(signUpIframePage.isDisplayed(signUpIframePage.getCloseButtonSignUp()));
         signUpIframePage.fillFieldsSignUp(email);
         logger.info("Fill form");
-        signUpIframePage.clickSingUpButton();
+        signUpIframePage.clickElement(signUpIframePage.getSignUpButton());
         logger.info("Redirect to home page but already logged in");
+    }
+
+    @Test(description = "Validate Carousel", priority = 3)
+    public void validateCarousel(){
+        HomePage homePage = getHomePage();
+        logger.info("Your are in the home page");
+        homePage.waitToBeClickable(homePage.getWatchLink());
+        Assert.assertTrue(homePage.getWatchLink().getAttribute("href").contains("watch"));
+        logger.info("Validate watch button");
+        WatchPage watchPage = homePage.clickWatchButton();
+        logger.info("You are in the Watch Page");
+        Assert.assertTrue(watchPage.isDisplayed(watchPage.getCarrouselAnchorTags().get(0)));
+        logger.info("Validate first carousel card is displayed");
+        Assert.assertNotEquals(watchPage.getCarrouselAnchorTags().get(0).getAttribute("data-track-title"), "");
+        logger.info("Validate the title of the first anchor tag exist");
+        ProviderIframePage providerIframePage = watchPage.clickCarouselTag(watchPage.getCarrouselAnchorTags().get(1));
+    }
+
+    @Test(description = "Validate provider page and close", priority = 4)
+    public void validateProviderPage(){
+        logger.info("Initiate provider page test");
+        ProviderIframePage providerIframePage = new ProviderIframePage(driver.getDriver());
+        providerIframePage.waitToBeClickable(providerIframePage.getCloseButtonProvider());
+        logger.info("Validate close button is displayed");
+        Assert.assertTrue(providerIframePage.isDisplayed(providerIframePage.getCloseButtonProvider()));
+        logger.info("Click on close button");
+        providerIframePage.clickElement(providerIframePage.getCloseButtonProvider());
+        logger.info("Go to home page");
+        providerIframePage.goPreviousPage();
+    }
+
+    @Test(description = "Validate log out", priority = 5)
+    public void validateLogOut(){
+        logger.info("Initiate log out test");
+        HomePage homePage = getHomePage();
+        logger.info("Hover over the user icon");
+        homePage.actionHoverElement();
+        logger.info("Validate username text is displayed");
+        Assert.assertTrue(homePage.getUsernameText().getText().contains("test"));
+        logger.info("Click in logout button");
+        homePage.clickElement(homePage.getLogOutButton());
+        logger.info("Validate log out with log in text");
+        homePage.waitToBeClickable(homePage.getLogInButtonCheck());
+        Assert.assertTrue(homePage.isDisplayed(homePage.getLogInButtonCheck()));
+        Assert.assertEquals(homePage.getLogInButtonCheck().getText(),"Log In");
     }
 
 }
