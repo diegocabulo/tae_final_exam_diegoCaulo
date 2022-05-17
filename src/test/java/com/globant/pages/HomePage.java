@@ -5,9 +5,16 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 
-
+/**
+ * Class thar represent the HomePage extends from BasePage
+ */
 public class HomePage extends BasePage{
 
+    /**
+     * Constructor
+     * @param pDriver WebDriver
+     * @param url String
+     */
     public HomePage(WebDriver pDriver, String url) {
         super(pDriver);
         pDriver.get(url);
@@ -36,19 +43,34 @@ public class HomePage extends BasePage{
     @FindBy(css = "#sideLogin-left-rail > button.button-alt.med")
     private WebElement logInButtonCheck;
 
+    /**
+     * Get the username text
+     * @return WebElement
+     */
     public WebElement getUsernameText() { return usernameText; }
 
+    /**
+     * Get the watch link Element
+     * @return WebElement
+     */
     public WebElement getWatchLink() { return watchLink; }
 
-    public WebElement getLogOutButton() {
-        return logOutButton;
-    }
+    /**
+     * Get the logOut button element
+     * @return WebElement
+     */
+    public WebElement getLogOutButton() { return logOutButton; }
 
-    public WebElement getLogInButton() { return logInButton; }
-
+    /**
+     * Get tje logIn button check element
+     * @return WebElement
+     */
     public WebElement getLogInButtonCheck() { return logInButtonCheck; }
 
-
+    /**
+     * Hover an element an then click in login button
+     * @return LogInFrame object and pass the driver
+     */
     public LogInIframe clickLogIn(){
         actionHoverElement();
         waitToBeClickable(logInButton);
@@ -57,13 +79,19 @@ public class HomePage extends BasePage{
         return new LogInIframe(getDriver());
     }
 
+    /**
+     * Click in watch element and change to a new page
+     * @return WatchPage object
+     */
     public WatchPage clickWatchButton(){
         waitToBeClickable(watchLink);
         watchLink.click();
         return new WatchPage(getDriver());
     }
 
-
+    /**
+     * Hover over an element
+     */
     public void actionHoverElement(){
         waitElementVisibility(hoverElement);
         actions.moveToElement(hoverElement).perform();
