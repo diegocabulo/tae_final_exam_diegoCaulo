@@ -11,6 +11,10 @@ public class Data {
         return new Object[][] {{randomEmailGenerate()}};
     }
 
+    /**
+     * Generate random Email to pass to test
+     * @return String
+     */
     public String randomEmailGenerate(){
         int leftLimit = 97; // letter 'a'
         int rightLimit = 122; // letter 'z'
